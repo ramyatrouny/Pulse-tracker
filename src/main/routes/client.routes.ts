@@ -1,4 +1,4 @@
-import { BodyParam, Delete, PathParam, Post, Router } from '@ubio/framework';
+import { BodyParam, Delete, Get, PathParam, Post, Router } from '@ubio/framework';
 import { dep } from 'mesh-ioc';
 
 import { ClientService } from '../services/client.service.js';
@@ -35,6 +35,17 @@ export class ClientRouter extends Router {
     ) {
         await this.clientService.unregisterClient(group, id);
         return { message: 'Client unregistered successfully' };
+    }
+
+    @Get({
+        path: '/',
+        responses: {
+            200: { description: 'Summary of all client groups' }
+        }
+    })
+    async getClientsSummary() {
+        const summary = await this.clientService.getClientsSummary();
+        return summary;
     }
 
 }

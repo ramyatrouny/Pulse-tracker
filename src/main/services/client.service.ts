@@ -40,4 +40,12 @@ export class ClientService {
         await this.clientRepository.deleteClient(group, id);
         this.logger.info(`Client ${id} in group ${group} has been unregistered`);
     }
+
+    /**
+     * Retrieves a summary of all clients in the system.
+     * @returns A promise that resolves with an array containing the summary of clients.
+     */
+    async getClientsSummary(): Promise<any[]> {
+        return this.clientRepository.getClientSummary();
+    }
 }

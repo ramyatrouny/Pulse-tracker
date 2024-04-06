@@ -54,4 +54,26 @@ export class ClientRepository {
     async deleteClient(group: string, id: string): Promise<void> {
         await this.collection.deleteOne({ id, group });
     }
+
+    /**
+     * Retrieves a summary of clients, grouped by their group identifier.
+     * @returns A promise that resolves to an array containing the summary of clients.
+     */
+    async getClientSummary(): Promise<any[]> {
+        return this.collection.aggregate([
+            {
+                $group: {
+                    _id: '$group',
+                    instances: { $sum: 1 },
+                    createdAt: { $min: '$createdAt' },
+                    lastUpdatedAt: { $max: '$updatedAt' }
+                }
+            },
+            {
+                $match: {
+                    instances: { $gt: 0 }
+                }
+            }
+        ]).toArray();
+    }
 }

@@ -1,0 +1,184 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "pulse-tracker",
+    "version": "1.0.0",
+    "description": "monitoring the heartbeat signals of client applications"
+  },
+  "paths": {
+    "/metrics": {
+      "get": {
+        "summary": "(internal) Get current process metrics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Prometheus metrics in text-based format",
+            "content": {
+              "text/plain": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{group}/{id}": {
+      "post": {
+        "summary": "",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "meta": {
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "meta"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "group",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Client registered or updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "group",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Client unregistered successfully",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Client not found",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Summary of all client groups",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{group}": {
+      "get": {
+        "summary": "",
+        "parameters": [
+          {
+            "name": "group",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of clients in the specified group",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Group not found",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

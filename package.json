@@ -1,0 +1,19 @@
+{
+  "name": "pulse-tracker",
+  "version": "1.0.0",
+  "description": "monitoring the heartbeat signals of client applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramyatrouny/pulse-tracker.git"
+  },
+  "author": "Rami Atrouni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ramyatrouny/pulse-tracker/issues"
+  },
+  "homepage": "https://github.com/ramyatrouny/pulse-tracker#readme"
+}

@@ -1,5 +1,6 @@
 {
 	"name": "pulse-tracker",
+	"type": "module",
 	"version": "1.0.0",
 	"description": "monitoring the heartbeat signals of client applications",
 	"main": "out/bin/serve.js",

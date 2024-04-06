@@ -1,8 +1,13 @@
 import { Application } from '@ubio/framework';
+import { MongoDb } from '@ubio/framework/modules/mongodb';
+import { dep } from 'mesh-ioc';
 
 export class App extends Application {
+    @dep() private mongodb!: MongoDb;
+
     override createGlobalScope() {
         const mesh = super.createGlobalScope();
+        mesh.service(MongoDb);
         return mesh;
     }
 
@@ -12,6 +17,7 @@ export class App extends Application {
     }
 
     override async beforeStart() {
+        await this.mongodb.start();
         await this.httpServer.startServer();
     }
 
@@ -21,6 +27,7 @@ export class App extends Application {
 
     override async afterStop() {
         await this.httpServer.stopServer();
+        await this.mongodb.stop();
     }
 
 }

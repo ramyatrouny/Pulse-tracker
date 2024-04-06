@@ -30,10 +30,12 @@
 	"homepage": "https://github.com/ramyatrouny/pulse-tracker#readme",
 	"dependencies": {
 		"@types/koa": "^2.15.0",
+		"@types/mongodb": "^4.0.7",
 		"@ubio/framework": "^15.11.1",
 		"dotenv": "^16.4.5",
 		"koa": "^2.15.2",
-		"mesh-ioc": "^3.3.0"
+		"mesh-ioc": "^3.3.0",
+		"mongodb": "^6.5.0"
 	},
 	"devDependencies": {
 		"@nodescript/eslint-config": "^1.2.0",

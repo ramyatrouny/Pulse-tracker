@@ -1,0 +1,3 @@
+{
+	"extends": ["@nodescript/eslint-config"]
+}

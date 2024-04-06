@@ -48,4 +48,13 @@ export class ClientService {
     async getClientsSummary(): Promise<any[]> {
         return this.clientRepository.getClientSummary();
     }
+
+    /**
+     * Retrieves detailed information about clients in a specific group.
+     * @param group The group for which detailed client information is requested.
+     * @returns A promise that resolves with an array of detailed client information for the specified group.
+     */
+    async getClientDetails(group: string): Promise<any[]> {
+        return this.clientRepository.getClientsByGroup(group);
+    }
 }

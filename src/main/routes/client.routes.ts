@@ -48,4 +48,18 @@ export class ClientRouter extends Router {
         return summary;
     }
 
+    @Get({
+        path: '/{group}',
+        responses: {
+            200: { description: 'Details of clients in the specified group' },
+            404: { description: 'Group not found' }
+        }
+    })
+    async getClientDetails(
+      @PathParam('group', { schema: { type: 'string' } }) group: string,
+    ) {
+        const details = await this.clientService.getClientDetails(group);
+        return details;
+    }
+
 }

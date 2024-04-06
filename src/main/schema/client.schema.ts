@@ -1,7 +1,7 @@
 import { Schema } from '@ubio/framework';
 import { UUID } from 'mongodb';
 
-export interface ClientService {
+export interface IClient {
     id: string;
     group: string;
     createdAt: number;
@@ -12,14 +12,14 @@ export interface ClientService {
 /**
  * Represents a client service within the discovery service framework.
  * This model tracks the registration and activity status of client service instances.
- * @typedef {Object} ClientService
+ * @typedef {Object} IClient
  * @property {string} id - The unique identifier for the client service, in UUID format.
  * @property {string} group - The group or category to which the client service belongs.
  * @property {number} createdAt - The timestamp when the client service was first registered.
  * @property {number} updatedAt - The timestamp when the client service was last updated.
  * @property {Record<string, any>} meta - An object containing arbitrary metadata related to the client service.
  */
-export const ClientSchema = new Schema<ClientService>({
+export const ClientSchema = new Schema<IClient>({
     schema: {
         type: 'object',
         properties: {

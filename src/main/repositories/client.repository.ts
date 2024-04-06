@@ -44,4 +44,14 @@ export class ClientRepository {
             .sort({ updatedAt: -1 })
             .toArray();
     }
+
+    /**
+     * Deletes a client record from the database.
+     * @param group The group to which the client belongs.
+     * @param id The unique identifier for the client.
+     * @returns A promise that resolves when the operation is complete.
+     */
+    async deleteClient(group: string, id: string): Promise<void> {
+        await this.collection.deleteOne({ id, group });
+    }
 }

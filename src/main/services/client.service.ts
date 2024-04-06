@@ -29,4 +29,15 @@ export class ClientService {
         this.logger.info(`Client ${id} in group ${group} has been registered or updated.`);
         return this.clientRepository.getClientsByGroup(group);
     }
+
+    /**
+     * Unregister a client from the system.
+     * @param group The group from which the client should be unregistered.
+     * @param id The unique identifier for the client to be unregistered.
+     * @returns A promise that resolves when the client has been unregistered.
+     */
+    async unregisterClient(group: string, id: string): Promise<void> {
+        await this.clientRepository.deleteClient(group, id);
+        this.logger.info(`Client ${id} in group ${group} has been unregistered`);
+    }
 }

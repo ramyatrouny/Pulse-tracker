@@ -2,17 +2,26 @@ import { Application } from '@ubio/framework';
 import { MongoDb } from '@ubio/framework/modules/mongodb';
 import { dep } from 'mesh-ioc';
 
+import { ClientRepository } from './repositories/client.repository.js';
+import { ClientRouter } from './routes/client.routes.js';
+import { ClientService } from './services/client.service.js';
+
 export class App extends Application {
     @dep() private mongodb!: MongoDb;
 
     override createGlobalScope() {
         const mesh = super.createGlobalScope();
         mesh.service(MongoDb);
+        mesh.service(ClientService);
+        mesh.service(ClientRepository);
+
         return mesh;
     }
 
     override createHttpRequestScope() {
         const mesh = super.createHttpRequestScope();
+        mesh.service(ClientRouter);
+
         return mesh;
     }
 

@@ -1,19 +1,45 @@
 {
-  "name": "pulse-tracker",
-  "version": "1.0.0",
-  "description": "monitoring the heartbeat signals of client applications",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ramyatrouny/pulse-tracker.git"
-  },
-  "author": "Rami Atrouni",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ramyatrouny/pulse-tracker/issues"
-  },
-  "homepage": "https://github.com/ramyatrouny/pulse-tracker#readme"
+	"name": "pulse-tracker",
+	"version": "1.0.0",
+	"description": "monitoring the heartbeat signals of client applications",
+	"main": "out/bin/serve.js",
+	"scripts": {
+		"start": "node out/bin/serve",
+		"dev": "npm run clean && tsc -w",
+		"lint": "eslint --ext=.js,.ts --cache .",
+		"clean": "rm -rf out",
+		"compile": "npm run clean && tsc",
+		"test": "NODE_ENV=test mocha",
+		"docs": "npm run docs:openapi && npm run docs:api",
+		"docs:openapi": "generate-openapi > openapi.json",
+		"docs:api": "generate-docs > API.md",
+		"preversion": "npm run lint && npm run compile",
+		"version": "npm run docs && git add openapi.json API.md",
+		"postversion": "git push origin $(git rev-parse --abbrev-ref HEAD) --tags"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ramyatrouny/pulse-tracker.git"
+	},
+	"author": "Rami Atrouni",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ramyatrouny/pulse-tracker/issues"
+	},
+	"homepage": "https://github.com/ramyatrouny/pulse-tracker#readme",
+	"dependencies": {
+		"@types/koa": "^2.15.0",
+		"@ubio/framework": "^15.11.1",
+		"dotenv": "^16.4.5",
+		"koa": "^2.15.2",
+		"mesh-ioc": "^3.3.0"
+	},
+	"devDependencies": {
+		"@nodescript/eslint-config": "^1.2.0",
+		"@types/node": "^20.12.5",
+		"eslint": "^8.57.0",
+		"mocha": "^10.4.0",
+		"npm-run-all": "^4.1.5",
+		"typescript": "^5.4.4"
+	}
 }

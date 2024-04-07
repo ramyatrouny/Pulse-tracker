@@ -61,6 +61,7 @@ export class ClientRepository {
      */
     async getClientSummary(): Promise<any[]> {
         return this.collection.aggregate([
+            // The $group stage groups documents by the 'group' field.
             {
                 $group: {
                     _id: '$group',
@@ -69,9 +70,20 @@ export class ClientRepository {
                     lastUpdatedAt: { $max: '$updatedAt' }
                 }
             },
+            // The $match stage filters the documents to only include those with 'instances' greater than 0.
             {
                 $match: {
                     instances: { $gt: 0 }
+                }
+            },
+            // The $project stage is used to shape the final output of the documents.
+            {
+                $project: {
+                    group: '$_id', // Add 'group' field with the value of '_id'
+                    instances: 1,
+                    createdAt: 1,
+                    lastUpdatedAt: 1,
+                    _id: 0 // Remove '_id' field from the output
                 }
             }
         ]).toArray();

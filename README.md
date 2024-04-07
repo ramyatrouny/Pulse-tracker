@@ -38,9 +38,9 @@ cd pulse-tracker
 npm install
 ```
 
-### Detailed Application Documentation
+## Documentation
 
-A Detailed Step-by-step Guide can be found in the application Documentation:
+A comprehensive, step-by-step guide is available in the application's documentation for detailed reference.
 
 [Application Documentation](docs/README.md)
 

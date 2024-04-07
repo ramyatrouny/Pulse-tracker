@@ -59,20 +59,15 @@ npm install mongodb @types/mongodb
 
 3. **Using the Repository in Application**: Integrate the repository into the application's service layer to abstract away the data access logic:
 
-   Example:
+   ```typescript
+   import { Application } from 'your-framework';
+   import { MyService } from './MyService';
 
-   ```ts
-   import { UserRepository } from './repositories/UserRepository';
-
-   class UserService {
-   	constructor(private userRepository: UserRepository) {}
-
-   	async addUser(userData: User): Promise<void> {
-   		await this.userRepository.insertUser(userData);
-   	}
-
-   	async getUserById(userId: string): Promise<User | null> {
-   		return this.userRepository.findUserById(userId);
+   export class App extends Application {
+   	createGlobalScope() {
+   		const mesh = super.createGlobalScope();
+   		mesh.service(UserRepository);
+   		return mesh;
    	}
    }
    ```

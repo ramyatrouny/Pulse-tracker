@@ -4,7 +4,7 @@ import { dep } from 'mesh-ioc';
 
 import { ClientRepository } from './repositories/client.repository.js';
 import { ClientRouter } from './routes/client.routes.js';
-import { ClientService } from './services/client.service.js';
+import { AbstractClientService, ClientService } from './services/client.service.js';
 
 export class App extends Application {
     @dep() private mongodb!: MongoDb;
@@ -12,7 +12,7 @@ export class App extends Application {
     override createGlobalScope() {
         const mesh = super.createGlobalScope();
         mesh.service(MongoDb);
-        mesh.service(ClientService);
+        mesh.service(AbstractClientService, ClientService);
         mesh.service(ClientRepository);
 
         return mesh;

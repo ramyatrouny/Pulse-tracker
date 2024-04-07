@@ -10,8 +10,21 @@ import { ClientRepository } from '../repositories/client.repository.js';
  * The service ensures that client instances that have not sent heartbeats within a configurable time frame
  * are periodically removed to maintain the accuracy of the registered instances.
  */
-export class ClientService {
-    @dep() private logger!: Logger;
+
+/**
+ * Abstract class for managing client instances in the discovery service framework.
+ */
+export abstract class AbstractClientService {
+    protected abstract logger: Logger;
+
+    abstract registerClient(group: string, id: string, meta: any): Promise<any>;
+    abstract unregisterClient(group: string, id: string): Promise<void>;
+    abstract getClientsSummary(): Promise<any[]>;
+    abstract getClientDetails(group: string): Promise<any[]>;
+}
+
+export class ClientService extends AbstractClientService {
+    @dep() protected logger!: Logger;
     @dep() private clientRepository!: ClientRepository;
 
     /**

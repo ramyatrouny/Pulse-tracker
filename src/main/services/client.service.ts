@@ -1,4 +1,4 @@
-import { Logger } from '@ubio/framework';
+import { config, Logger } from '@ubio/framework';
 import { dep } from 'mesh-ioc';
 
 import { ClientRepository } from '../repositories/client.repository.js';
@@ -26,6 +26,7 @@ export abstract class AbstractClientService {
 export class ClientService extends AbstractClientService {
     @dep() protected logger!: Logger;
     @dep() private clientRepository!: ClientRepository;
+    @config({ default: 60 }) private expirationTimeInMinutes!: number;
 
     /**
      * Registers or updates a client instance within a specified group. If the client instance
@@ -69,5 +70,17 @@ export class ClientService extends AbstractClientService {
      */
     async getClientDetails(group: string): Promise<any[]> {
         return this.clientRepository.getClientsByGroup(group);
+    }
+
+    /**
+     * Cleans up clients that have expired based on the predefined expiration time.
+     * It should be called periodically to ensure that the client registry is up-to-date. No need to have a Route for it
+     * It can be called from the main.ts file or from a cron job.
+     * @returns A promise that resolves when expired clients have been cleaned up.
+     */
+    async cleanupExpiredClients(): Promise<void> {
+        const expirationThreshold = new Date(Date.now() - this.expirationTimeInMinutes * 60 * 1000);
+        const deletedCount = await this.clientRepository.cleanupExpiredClients(expirationThreshold);
+        this.logger.info(`Cleaned up ${deletedCount} expired client(s)`);
     }
 }

@@ -76,4 +76,14 @@ export class ClientRepository {
             }
         ]).toArray();
     }
+
+    /**
+     * Cleans up clients that have not been updated past the specified expiration threshold.
+     * @param expirationThreshold The date before which clients should be considered expired and deleted.
+     * @returns A promise that resolves to the number of clients deleted.
+     */
+    async cleanupExpiredClients(expirationThreshold: Date): Promise<number> {
+        const result = await this.collection.deleteMany({ updatedAt: { $lt: expirationThreshold } });
+        return result.deletedCount;
+    }
 }

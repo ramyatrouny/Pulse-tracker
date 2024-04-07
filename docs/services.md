@@ -27,7 +27,7 @@ Inversion of Control (IoC) is a design principle that inverts the control flow i
    ```typescript
    import { dep } from 'mesh-ioc';
 
-   class MyService {
+   class MyService extends MyServiceInterface {
    	@dep() logger!: Logger;
 
    	myMethod() {

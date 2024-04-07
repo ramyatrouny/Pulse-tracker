@@ -23,7 +23,7 @@ Pulse Tracker is a RESTful horizontally scalable discovery service built using t
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/pulse-tracker.git
+git clone https://github.com/ramyatrouny/pulse-tracker.git
 ```
 
 2. Navigate into the project directory:

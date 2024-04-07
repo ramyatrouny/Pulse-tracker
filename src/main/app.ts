@@ -5,6 +5,7 @@ import { dep } from 'mesh-ioc';
 import { ClientRepository } from './repositories/client.repository.js';
 import { ClientRouter } from './routes/client.routes.js';
 import { AbstractClientService, ClientService } from './services/client.service.js';
+import { ErrorHandler } from './util/error-handler.js';
 
 export class App extends Application {
     @dep() private mongodb!: MongoDb;
@@ -14,6 +15,8 @@ export class App extends Application {
         mesh.service(MongoDb);
         mesh.service(AbstractClientService, ClientService);
         mesh.service(ClientRepository);
+
+        mesh.service(ErrorHandler);
 
         return mesh;
     }

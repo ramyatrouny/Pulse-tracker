@@ -2,9 +2,11 @@ import { BodyParam, Delete, Get, PathParam, Post, Router } from '@ubio/framework
 import { dep } from 'mesh-ioc';
 
 import { ClientService } from '../services/client.service.js';
+import { ErrorHandler } from '../util/error-handler.js';
 
 export class ClientRouter extends Router {
     @dep() private clientService!: ClientService;
+    @dep() private errorHandler!: ErrorHandler;
 
     @Post({
         path: '/{group}/{id}',
@@ -18,8 +20,11 @@ export class ClientRouter extends Router {
         @PathParam('id', { schema: { type: 'string' } }) id: string,
         @BodyParam('meta', { schema: { type: 'object' } }) meta: any
     ) {
-        const result = await this.clientService.registerClient(group, id, meta);
-        return result;
+        try {
+            return await this.clientService.registerClient(group, id, meta);
+        } catch (error) {
+            return this.errorHandler.handle(error);
+        }
     }
 
     @Delete({
@@ -30,11 +35,15 @@ export class ClientRouter extends Router {
         }
     })
     async unregisterClient(
-      @PathParam('group', { schema: { type: 'string' } }) group: string,
-      @PathParam('id', { schema: { type: 'string' } }) id: string
+        @PathParam('group', { schema: { type: 'string' } }) group: string,
+        @PathParam('id', { schema: { type: 'string' } }) id: string
     ) {
-        await this.clientService.unregisterClient(group, id);
-        return { message: 'Client unregistered successfully' };
+        try {
+            await this.clientService.unregisterClient(group, id);
+            return { message: 'Client unregistered successfully' };
+        } catch (error) {
+            return this.errorHandler.handle(error);
+        }
     }
 
     @Get({
@@ -44,8 +53,11 @@ export class ClientRouter extends Router {
         }
     })
     async getClientsSummary() {
-        const summary = await this.clientService.getClientsSummary();
-        return summary;
+        try {
+            return await this.clientService.getClientsSummary();
+        } catch (error) {
+            return this.errorHandler.handle(error);
+        }
     }
 
     @Get({
@@ -56,10 +68,12 @@ export class ClientRouter extends Router {
         }
     })
     async getClientDetails(
-      @PathParam('group', { schema: { type: 'string' } }) group: string,
+        @PathParam('group', { schema: { type: 'string' } }) group: string,
     ) {
-        const details = await this.clientService.getClientDetails(group);
-        return details;
+        try {
+            return await this.clientService.getClientDetails(group);
+        } catch (error) {
+            return this.errorHandler.handle(error);
+        }
     }
-
 }

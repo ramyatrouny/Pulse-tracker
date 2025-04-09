@@ -33,7 +33,7 @@
 		"@types/mongodb": "^4.0.7",
 		"@ubio/framework": "^15.11.1",
 		"dotenv": "^16.4.5",
-		"koa": "^2.15.2",
+		"koa": "^2.16.1",
 		"mesh-ioc": "^3.3.0",
 		"mongodb": "^6.5.0"
 	},
